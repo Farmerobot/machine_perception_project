@@ -1,0 +1,59 @@
+============================================================
+  A: sigmoid + raw targets
+  sigmoid=True  log_target=False
+============================================================
+    Epoch 1/6  train_L1=0.2058
+    Epoch 2/6  train_L1=0.1106
+    Epoch 3/6  train_L1=0.0616
+    Epoch 4/6  train_L1=0.0417
+    Epoch 5/6  train_L1=0.0348
+    Epoch 6/6  train_L1=0.0322
+  Time: 456s  AbsRel: 96.5%  RMSE: 0.0617  d1: 41.8%  d2: 62.5%  d3: 74.2%
+
+============================================================
+  B: sigmoid + log targets
+  sigmoid=True  log_target=True
+============================================================
+    Epoch 1/6  train_L1=0.1915
+    Epoch 2/6  train_L1=0.0862
+    Epoch 3/6  train_L1=0.0467
+    Epoch 4/6  train_L1=0.0340
+    Epoch 5/6  train_L1=0.0294
+    Epoch 6/6  train_L1=0.0276
+  Time: 458s  AbsRel: 82.4%  RMSE: 0.0647  d1: 39.4%  d2: 60.9%  d3: 73.9%
+
+============================================================
+  C: linear head + raw targets
+  sigmoid=False  log_target=False
+============================================================
+    Epoch 1/6  train_L1=0.0518
+    Epoch 2/6  train_L1=0.0343
+    Epoch 3/6  train_L1=0.0312
+    Epoch 4/6  train_L1=0.0290
+    Epoch 5/6  train_L1=0.0276
+    Epoch 6/6  train_L1=0.0267
+  Time: 455s  AbsRel: 62.9%  RMSE: 0.0648  d1: 38.5%  d2: 62.2%  d3: 75.0%
+
+============================================================
+  D: linear head + log targets
+  sigmoid=False  log_target=True
+============================================================
+    Epoch 1/6  train_L1=0.0684
+    Epoch 2/6  train_L1=0.0364
+    Epoch 3/6  train_L1=0.0308
+    Epoch 4/6  train_L1=0.0281
+    Epoch 5/6  train_L1=0.0263
+    Epoch 6/6  train_L1=0.0253
+  Time: 453s  AbsRel: 67.4%  RMSE: 0.0666  d1: 37.8%  d2: 61.4%  d3: 74.4%
+
+======================================================================
+  FINAL COMPARISON (1000 train, 200 val, 6 epochs, BS=16)
+======================================================================
+  Variant                             AbsRel%  RMSE    d<1.25  d<1.56  d<1.95  Time
+  ----------------------------------- -------  ------  ------  ------  ------  ----
+  A: sigmoid + raw targets              96.5   0.0617   41.8%   62.5%   74.2%  456s
+  B: sigmoid + log targets              82.4   0.0647   39.4%   60.9%   73.9%  458s
+  C: linear head + raw targets          62.9   0.0648   38.5%   62.2%   75.0%  455s
+  D: linear head + log targets          67.4   0.0666   37.8%   61.4%   74.4%  453s
+
+  BEST: C: linear head + raw targets

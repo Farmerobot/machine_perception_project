@@ -1,0 +1,20 @@
+Epoch 1/10  train_L1=0.1860  val_L1=0.1166  lr=0.000976  (73.8s)
+Epoch 2/10  train_L1=0.0911  val_L1=0.0698  lr=0.000905  (70.0s)
+Epoch 3/10  train_L1=0.0487  val_L1=0.0538  lr=0.000794  (69.4s)
+Epoch 4/10  train_L1=0.0337  val_L1=0.0462  lr=0.000655  (70.2s)
+Epoch 5/10  train_L1=0.0291  val_L1=0.0451  lr=0.000500  (71.4s)
+Epoch 6/10  train_L1=0.0269  val_L1=0.0461  lr=0.000345  (69.5s)
+Epoch 7/10  train_L1=0.0256  val_L1=0.0422  lr=0.000206  (70.0s)
+Epoch 8/10  train_L1=0.0248  val_L1=0.0442  lr=0.000095  (69.7s)
+Epoch 9/10  train_L1=0.0242  val_L1=0.0413  lr=0.000024  (69.9s)
+Epoch 10/10  train_L1=0.0239  val_L1=0.0411  lr=0.000000  (69.5s)
+
+Total training time: 703.4s
+Saving model to baseline_unet.pth
+
+Val metrics (5,028,524 valid pixels):
+  Abs Rel Error:  0.6157  (predictions are 61.6% off ground truth on average)
+  RMSE:           0.0581  (in inverse-depth units, range [0, 0.49])
+  delta < 1.25:    42.7% of pixels where pred is within 25% of ground truth
+  delta < 1.56:    65.7% of pixels where pred is within 56% of ground truth
+  delta < 1.95:    78.3% of pixels where pred is within 95% of ground truth
