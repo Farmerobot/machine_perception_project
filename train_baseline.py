@@ -8,7 +8,7 @@ from pathlib import Path
 import time
 
 # Config
-DATA_ROOT = Path("data/cityscapes-depth-and-segmentation/data")
+DATA_ROOT = Path("data")
 MEAN = torch.tensor([0.2869, 0.3254, 0.2839]).view(3, 1, 1)
 STD = torch.tensor([0.1701, 0.1748, 0.1722]).view(3, 1, 1)
 
@@ -48,11 +48,17 @@ class ConvBlock(nn.Module):
     def __init__(self, cin, cout):
         super().__init__()
         self.block = nn.Sequential(
-            nn.Conv2d(cin, cout, 3, padding=1), nn.BatchNorm2d(cout), nn.ReLU(inplace=True),
-            nn.Conv2d(cout, cout, 3, padding=1), nn.BatchNorm2d(cout), nn.ReLU(inplace=True),
+            nn.Conv2d(cin, cout, 3, padding=1),
+            nn.BatchNorm2d(cout),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(cout, cout, 3, padding=1),
+            nn.BatchNorm2d(cout),
+            nn.ReLU(inplace=True),
         )
+
     def forward(self, x):
         return self.block(x)
+
 
 class TinyUNet(nn.Module):
     def __init__(self, ch=16):
@@ -125,7 +131,9 @@ def main():
 
         scheduler.step()
         dt = time.time() - t0
-        print(f"Epoch {epoch}/{EPOCHS}  train_L1={train_loss:.4f}  val_L1={val_loss:.4f}  lr={scheduler.get_last_lr()[0]:.6f}  ({dt:.1f}s)")
+        print(
+            f"Epoch {epoch}/{EPOCHS}  train_L1={train_loss:.4f}  val_L1={val_loss:.4f}  lr={scheduler.get_last_lr()[0]:.6f}  ({dt:.1f}s)"
+        )
 
     total = time.time() - t_start
     print(f"\nTotal training time: {total:.1f}s")
@@ -164,11 +172,15 @@ def evaluate(model, dataloader):
     rmse = (total_squared_error / total_pixels) ** 0.5
 
     print(f"\nVal metrics ({total_pixels:,} valid pixels):")
-    print(f"  Abs Rel Error:  {mean_abs_rel:.4f}  (predictions are {mean_abs_rel*100:.1f}% off ground truth on average)")
+    print(
+        f"  Abs Rel Error:  {mean_abs_rel:.4f}  (predictions are {mean_abs_rel*100:.1f}% off ground truth on average)"
+    )
     print(f"  RMSE:           {rmse:.4f}  (in inverse-depth units, range [0, 0.49])")
     for threshold, count in accuracy_within.items():
         pct = count / total_pixels * 100
-        print(f"  delta < {threshold:.2f}:    {pct:.1f}% of pixels where pred is within {(threshold-1)*100:.0f}% of ground truth")
+        print(
+            f"  delta < {threshold:.2f}:    {pct:.1f}% of pixels where pred is within {(threshold-1)*100:.0f}% of ground truth"
+        )
 
 
 if __name__ == "__main__":
